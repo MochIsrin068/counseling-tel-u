@@ -1,0 +1,78 @@
+{
+    "consular": [
+      {
+        "name": "Gentur Antho Judho,  S.Psi.",
+        "nik": "21013436",
+        "password": "123456",
+        "photo": "https://randomuser.me/api/portraits/men/1.jpg"
+      },
+      {
+        "name": "Didik Kusnadi, S.Psi, M.P si",
+        "nik": "0801117",
+        "password": "123456",
+        "photo": "https://randomuser.me/api/portraits/men/2.jpg"
+      },
+      {
+        "name": "Rahmi Maya Fitri, M.Psi",
+        "nik": "17011113",
+        "password": "123456",
+        "photo": "https://randomuser.me/api/portraits/men/3.jpg"
+      },
+      {
+        "name": "Shinta Putrinanda, M.Si",
+        "nik": "20012848",
+        "password": "123456",
+        "photo": "https://randomuser.me/api/portraits/men/4.jpg"
+      },
+      {
+        "name": "Rosi Hernawati, M. Psi",
+        "nik": "1501920",
+        "password": "123456",
+        "photo": "https://randomuser.me/api/portraits/men/5.jpg"
+      },
+      {
+        "name": "Tenny Septiani Rachmam",
+        "nik": "18011264",
+        "password": "123456",
+        "photo": "https://randomuser.me/api/portraits/men/6.jpg"
+      },
+      {
+        "name": "Tessalonika Sembiring, M.Psi",
+        "nik": "19012136",
+        "password": "123456",
+        "photo": "https://randomuser.me/api/portraits/men/7.jpg"
+      },
+      {
+        "name": "Magdalena Hanoum, M. Psi",
+        "nik": "1501795",
+        "password": "123456",
+        "photo": "https://randomuser.me/api/portraits/men/8.jpg"
+      },
+      {
+        "name": "Linda Widyastuti, S.Psi., M.Psi.",
+        "nik": "21012928",
+        "password": "123456",
+        "photo": "https://randomuser.me/api/portraits/men/9.jpg"
+      },
+      {
+        "name": "Karina",
+        "nik": "20012857",
+        "password": "123456",
+        "photo": "https://randomuser.me/api/portraits/men/10.jpg"
+      },
+      {
+        "name": "Ermilda, S.Psi., M.Psi",
+        "nik": "21012937",
+        "password": "123456",
+        "photo": "https://randomuser.me/api/portraits/men/11.jpg"
+      }
+    ],
+    "students": [
+      {
+        "name": "Raihan Azhar Rafi",
+        "nim": "20186726630",
+        "password": "123456",
+        "photo": "https://randomuser.me/api/portraits/men/12.jpg"
+      }
+    ]
+  }
