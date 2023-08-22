@@ -9,18 +9,22 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
+  TextInput,
 } from "react-native";
 import { Input, Icon } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
 import { getTable } from "../configs/firebaseConfig";
 import { onValue } from "firebase/database";
 import { getData } from "../utils/localStorage";
+import Skeleton from "../components/Skeleton";
 
 export default function ChatScreen({ navigation }) {
   const [refresh, setRefresh] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [userList, setUserList] = useState([]);
   const [userData, setUserData] = useState(null);
+  const [keyword, setKeyword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const getListData = (data) => {
     const tableName = data && data?.nik ? "students" : "consular";
@@ -36,20 +40,36 @@ export default function ChatScreen({ navigation }) {
     });
   };
 
-  useEffect(() => {
+  const getDataUser = () => {
+    setIsLoading(true);
     getData("user").then((res) => {
       setUserData(res);
-      console.log("user login", res);
       getListData(res);
     });
-  }, []);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+  };
+
+  useEffect(() => {
+    if (keyword) {
+      const newUserList = userList.filter((item) =>
+        `${item?.name}`.includes(keyword)
+      );
+      setUserList(newUserList);
+    } else {
+      getDataUser();
+    }
+  }, [keyword]);
 
   return (
     <View style={styles.container}>
       <View style={styles.inputWrapper}>
         <Input
           placeholder={
-            userData && userData?.nik ? "Cari Mahasiswa" : "Cari Konsulan"
+            userData && userData?.nik
+              ? "Cari Nama Mahasiswa"
+              : "Cari Nama Konsulan"
           }
           variant="filled"
           width="100%"
@@ -64,11 +84,15 @@ export default function ChatScreen({ navigation }) {
               as={<Ionicons name="ios-search" />}
             />
           }
+          value={keyword}
+          onChangeText={(value) => setKeyword(value)}
         />
       </View>
 
       <View style={styles.listWrapper}>
-        {refreshing ? (
+        {isLoading ? (
+          <Skeleton />
+        ) : refreshing ? (
           <ActivityIndicator
             size="large"
             color="#05A0E4"

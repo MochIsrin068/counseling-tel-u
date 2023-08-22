@@ -57,7 +57,7 @@ export default function Home({ navigation }) {
         </View>
       </SafeAreaView>
 
-      <Tab.Navigator>
+      <Tab.Navigator initialRouteName="Profile">
         <Tab.Screen
           name="Chat"
           component={ChatScreen}

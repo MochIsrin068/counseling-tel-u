@@ -37,18 +37,69 @@ export default function ProfileScreen({ navigation }) {
       />
 
       <Text style={styles.name}>{userData?.name}</Text>
-      <Text style={styles.nimNik}>{userData?.nik || userData?.nim}</Text>
       <View style={styles.divider}></View>
-
-      <View style={styles.actionWrapper}>
-        <TouchableOpacity
-          style={styles.action}
-          onPress={() => alert("upcoming")}
+      {userData?.subject && (
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            width: "100%",
+            backgroundColor: "#EDEEF0",
+            marginTop: 16,
+            paddingHorizontal: 10,
+            paddingVertical: 16,
+            borderRadius: 4,
+          }}
         >
-          <FontAwesome name="edit" size={24} color="blue" />
-          <Text style={styles.actionText}>Edit Profile</Text>
-        </TouchableOpacity>
+          <Text
+            style={{
+              fontWeight: "600",
+              fontSize: 12,
+            }}
+          >
+            Jurusan
+          </Text>
+          <Text
+            style={{
+              fontSize: 12,
+            }}
+          >
+            {userData?.subject}
+          </Text>
+        </View>
+      )}
+
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          width: "100%",
+          backgroundColor: "#EDEEF0",
+          marginTop: 16,
+          padding: 10,
+          borderRadius: 4,
+        }}
+      >
+        <Text
+          style={{
+            fontWeight: "600",
+            fontSize: 12,
+          }}
+        >
+          {userData?.nik ? "NIK" : "NIM"}
+        </Text>
+        <Text
+          style={{
+            fontSize: 12,
+          }}
+        >
+          {userData?.nik || userData?.nim}
+        </Text>
       </View>
+
+      <View style={styles.divider}></View>
 
       {userData?.nim && (
         <View style={styles.actionWrapper}>
@@ -82,6 +133,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   nimNik: {
+    fontSize: 16,
+    marginTop: 12,
+    textAlign: "center",
+  },
+  subject: {
     fontSize: 16,
     marginTop: 12,
     textAlign: "center",
