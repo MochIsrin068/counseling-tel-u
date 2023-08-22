@@ -2,6 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ChatScreen from "./Chat";
 import ProfileScreen from "./Profile";
+import HistoryScreen from "./History";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import {
   Text,
@@ -66,6 +67,17 @@ export default function Home({ navigation }) {
             tabBarLabel: "Chat",
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="chatbubbles-sharp" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="History"
+          component={HistoryScreen}
+          options={{
+            headerShown: false,
+            tabBarLabel: "History",
+            tabBarIcon: ({ color, size }) => (
+              <FontAwesome name="history" color={color} size={size} />
             ),
           }}
         />

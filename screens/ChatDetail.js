@@ -1,5 +1,12 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { GiftedChat, Bubble, Composer, Send } from "react-native-gifted-chat";
+import React, { useState, useCallback, useEffect, useMemo } from "react";
+import {
+  GiftedChat,
+  Bubble,
+  Composer,
+  Send,
+  InputToolbar,
+  Avatar,
+} from "react-native-gifted-chat";
 import {
   Text,
   TouchableOpacity,
@@ -14,7 +21,8 @@ import { onValue, update, ref } from "firebase/database";
 import { getData } from "../utils/localStorage";
 
 export default function ChatDetailScreen({ navigation, route }) {
-  const { item } = route.params;
+  const { item } = route?.params;
+  const sourcePage = route?.params?.sourcePage;
 
   const [messages, setMessages] = useState([]);
   const [userData, setUserData] = useState(null);
@@ -26,60 +34,29 @@ export default function ChatDetailScreen({ navigation, route }) {
     });
   }, []);
 
+  const onGetMessages = () => {
+    onValue(
+      getTable(
+        `history/${
+          userData?.nik
+            ? `${userData?.nik}${item?.identityNumber}`
+            : `${item?.identityNumber}${userData?.nim}`
+        }`
+      ),
+      (snapshot) => {
+        const data = snapshot?.val();
+        setMessages(data?.messages || []);
+      }
+    );
+  };
+
   useEffect(() => {
     if (userData) {
-      onValue(
-        getTable(
-          `history/${
-            userData?.nik
-              ? `${userData?.nik}${item?.identityNumber}`
-              : `${item?.identityNumber}${userData?.nim}`
-          }`
-        ),
-        (snapshot) => {
-          const data = snapshot.val();
-          console.log("data message", data);
-          setMessages((previousMessages) =>
-            GiftedChat.append(previousMessages, data?.messages || [])
-          );
-        }
-      );
+      onGetMessages();
     }
   }, [userData]);
 
-  // useEffect(() => {
-  //   setMessages([
-  //     {
-  //       _id: 1,
-  //       text: "Hello developer",
-  //       createdAt: new Date(),
-  //       user: {
-  //         _id: 2,
-  //         name: "React Native",
-  //         avatar: "https://placeimg.com/140/140/any",
-  //       },
-  //     },
-  //   ]);
-  // }, []);
-
   const onSend = (newMessages = []) => {
-    console.log("ms", messages);
-    // setMessages((previousMessages) => {
-    //   update(
-    //     ref(
-    //       database,
-    //       `history/${
-    //         userData?.nik
-    //           ? `${userData?.nik}${item?.identityNumber}`
-    //           : `${item?.identityNumber}${userData?.nim}`
-    //       }/`
-    //     ),
-    //     { messages: GiftedChat.append(previousMessages, messages) }
-    //   );
-
-    //   return GiftedChat.append(previousMessages, messages);
-    // });
-
     update(
       ref(
         database,
@@ -91,62 +68,48 @@ export default function ChatDetailScreen({ navigation, route }) {
       ),
       { messages: GiftedChat.append(messages, newMessages) }
     );
-
-    // if(message.length > 0){
-    //   onValue(getTable(`mesages/${userData?.nik || userData?.nim}/${item?.identityNumber}`), (snapshot) => {
-    //     const data = snapshot.val();
-    //     setMessages((previousMessages) =>
-    //       GiftedChat.append(previousMessages, data)
-    //     );
-    //   });
-    // }
   };
 
-  console.log("message", messages);
-
   const renderBubble = (props) => (
-    <Bubble
-      {...props}
-      // textStyle={{
-      //   right: {
-      //     fontFamily: PoppinsRegular,
-      //   },
-      //   left: {
-      //     fontFamily: PoppinsRegular,
-      //   },
-      // }}
-      wrapperStyle={{
-        right: {
-          backgroundColor: "#1a2849",
-          borderTopLeftRadius: 7,
-          borderTopRightRadius: 7,
-          borderBottomRightRadius: 7,
-          borderBottomLeftRadius: 0,
-        },
-        left: {
-          borderTopLeftRadius: 7,
-          borderTopRightRadius: 7,
-          borderBottomRightRadius: 7,
-          borderBottomLeftRadius: 0,
-        },
+    <View
+      style={{
+        marginBottom: 26,
       }}
-    />
+    >
+      <Bubble
+        {...props}
+        wrapperStyle={{
+          right: {
+            backgroundColor: "#0066CB",
+            borderTopLeftRadius: 7,
+            borderTopRightRadius: 7,
+            borderBottomRightRadius: 7,
+            borderBottomLeftRadius: 0,
+          },
+          left: {
+            backgroundColor: "#e8e8e8",
+            borderTopLeftRadius: 7,
+            borderTopRightRadius: 7,
+            borderBottomRightRadius: 7,
+            borderBottomLeftRadius: 0,
+          },
+        }}
+      />
+    </View>
   );
 
   const renderSend = (props) => (
-    <Send {...props}>
+    <Send {...props} containerStyle={{ borderWidth: 0 }}>
       <View
         style={{
           width: 54,
-          height: 44,
-          // borderTopLeftRadius: 25,
-          // borderBottomLeftRadius: 25,
+          height: "100%",
           marginBottom: 0,
-          // marginHorizontal: 5,
-          // backgroundColor: colors.litBlue,
-          backgroundColor: "#505bda",
+          backgroundColor: "#0066CB",
           justifyContent: "center",
           alignItems: "center",
+          borderTopEndRadius: 22,
+          borderBottomEndRadius: 22,
         }}
       >
         <FontAwesome5 name="paper-plane" size={24} color="white" />
@@ -184,6 +147,29 @@ export default function ChatDetailScreen({ navigation, route }) {
     </View>
   );
 
+  const renderInputToolbar = (props) => (
+    <InputToolbar
+      {...props}
+      containerStyle={{
+        marginLeft: 15,
+        marginRight: 15,
+        marginBottom: 20,
+        borderWidth: 1,
+        borderColor: "#e8e8e8",
+        borderRadius: 22,
+      }}
+    />
+  );
+
+  const renderAvatar = (props) => (
+    <View
+      style={{
+        marginBottom: 26,
+      }}
+    >
+      <Avatar {...props} />
+    </View>
+  );
   return (
     <>
       <SafeAreaView>
@@ -198,7 +184,9 @@ export default function ChatDetailScreen({ navigation, route }) {
             borderBottomWidth: 6,
           }}
         >
-          <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate(`${sourcePage}`)}
+          >
             <AntDesign name="arrowleft" size={22} color="black" />
           </TouchableOpacity>
           <Text
@@ -214,7 +202,10 @@ export default function ChatDetailScreen({ navigation, route }) {
       </SafeAreaView>
       <GiftedChat
         renderBubble={renderBubble}
+        render
         renderSend={renderSend}
+        renderInputToolbar={renderInputToolbar}
+        renderAvatar={renderAvatar}
         text={message}
         onInputTextChanged={(val) => setMessage(val)}
         messages={messages}
@@ -222,6 +213,8 @@ export default function ChatDetailScreen({ navigation, route }) {
         renderChatEmpty={renderChatEmpty}
         user={{
           _id: userData?.nik || userData?.nim,
+          name: userData?.name,
+          avatar: userData?.photo,
         }}
       />
     </>

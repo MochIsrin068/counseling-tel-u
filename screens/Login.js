@@ -12,6 +12,7 @@ export default function LoginScreen({ navigation }) {
     isDisableButton,
     isConsular,
     setIsConsular,
+    resetForm,
   } = useAuthentication(navigation);
 
   return (
@@ -65,7 +66,10 @@ export default function LoginScreen({ navigation }) {
       <Box alignItems="center" w="100%" style={styles.button}>
         <Button
           variant="ghost"
-          onPress={() => setIsConsular(!isConsular)}
+          onPress={() => {
+            setIsConsular(!isConsular);
+            resetForm();
+          }}
           w="100%"
           isLoading={isLoading}
         >

@@ -101,6 +101,14 @@ export default function useAuthentication(navigation) {
     }
   }, [form]);
 
+  const resetForm = () => {
+    setForm({
+      nim: "",
+      nik: "",
+      password: "",
+    });
+  };
+
   return {
     form,
     isLoading,
@@ -109,5 +117,6 @@ export default function useAuthentication(navigation) {
     isDisableButton,
     isConsular,
     setIsConsular,
+    resetForm,
   };
 }

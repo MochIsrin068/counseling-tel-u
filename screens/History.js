@@ -1,29 +1,24 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
-  Button,
   StyleSheet,
   FlatList,
   RefreshControl,
   TouchableOpacity,
   Image,
   Dimensions,
-  TextInput,
 } from "react-native";
-import { Input, Icon } from "native-base";
-import { Ionicons } from "@expo/vector-icons";
 import { getTable } from "../configs/firebaseConfig";
 import { onValue } from "firebase/database";
 import { getData } from "../utils/localStorage";
 import Skeleton from "../components/Skeleton";
 
-export default function ChatScreen({ navigation }) {
+export default function HistoryScreen({ navigation }) {
   const [refresh, setRefresh] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [userList, setUserList] = useState([]);
   const [userData, setUserData] = useState(null);
-  const [keyword, setKeyword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const getListData = (data) => {
@@ -52,43 +47,11 @@ export default function ChatScreen({ navigation }) {
   };
 
   useEffect(() => {
-    if (keyword) {
-      const newUserList = userList.filter((item) =>
-        `${item?.name}`.includes(keyword)
-      );
-      setUserList(newUserList);
-    } else {
-      getDataUser();
-    }
-  }, [keyword]);
+    getDataUser();
+  }, []);
 
   return (
     <View style={styles.container}>
-      <View style={styles.inputWrapper}>
-        <Input
-          placeholder={
-            userData && userData?.nik
-              ? "Cari Nama Mahasiswa"
-              : "Cari Nama Konsulan"
-          }
-          variant="filled"
-          width="100%"
-          borderRadius="4"
-          py="2"
-          px="2"
-          InputLeftElement={
-            <Icon
-              ml="2"
-              size="4"
-              color="gray.400"
-              as={<Ionicons name="ios-search" />}
-            />
-          }
-          value={keyword}
-          onChangeText={(value) => setKeyword(value)}
-        />
-      </View>
-
       <View style={styles.listWrapper}>
         {isLoading ? (
           <Skeleton />
@@ -139,7 +102,7 @@ export default function ChatScreen({ navigation }) {
                   onPress={() =>
                     navigation.navigate("ChatDetail", {
                       item,
-                      sourcePage: "Chat",
+                      sourcePage: "History",
                     })
                   }
                 >
@@ -199,9 +162,8 @@ const styles = StyleSheet.create({
   // new
 
   listWrapper: {
-    marginTop: 16,
     backgroundColor: "white",
-    height: Dimensions.get("window").height - 290,
+    height: Dimensions.get("window").height - 216,
     width: "100%",
     borderRadius: 4,
   },
