@@ -9,12 +9,16 @@ import {
   Image,
   Dimensions,
 } from "react-native";
+import { onValue, ref } from "firebase/database";
+import { useIsFocused } from "@react-navigation/native";
+
 import { getTable } from "../configs/firebaseConfig";
-import { onValue } from "firebase/database";
 import { getData } from "../utils/localStorage";
 import Skeleton from "../components/Skeleton";
 
 export default function HistoryScreen({ navigation }) {
+  const isFocused = useIsFocused();
+
   const [refresh, setRefresh] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [userList, setUserList] = useState([]);
@@ -22,16 +26,47 @@ export default function HistoryScreen({ navigation }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const getListData = (data) => {
-    const tableName = data && data?.nik ? "students" : "consular";
-    onValue(getTable(tableName), (snapshot) => {
-      const data = snapshot.val();
-      const consulerData = data?.map((item) => ({
-        identityNumber: item?.nik || item?.nim,
-        name: item?.name,
-        role: item?.nik ? "conselar" : "student",
-        photo: item?.photo,
-      }));
-      setUserList(consulerData);
+    onValue(getTable("history"), (snapshot) => {
+      const historyList = snapshot?.val();
+      if (snapshot.exists()) {
+        const identityNumber = data?.nik ? data?.nik : data?.nim;
+        const historyData = Object.keys(historyList)
+          .map((key, index) => ({
+            key: key,
+            ...historyList[key],
+          }))
+          .filter((dataMapping) =>
+            `${dataMapping.key}`.includes(identityNumber)
+          )
+          .map((dataFiltered, index) => {
+            const key = dataFiltered?.key;
+            const userData =
+              historyList[key]?.messages?.find(
+                (msg) => msg?.user?._id === identityNumber
+              ) ||
+              historyList[key]?.messages?.find(
+                (msg) => msg?.user?.targetUser?._id === identityNumber
+              );
+            return {
+              key: key,
+              identityNumber:
+                userData?.user?.targetUser?._id === identityNumber
+                  ? userData?.user?._id
+                  : userData?.user?.targetUser?._id,
+              name:
+                userData?.user?.targetUser?._id === identityNumber
+                  ? userData?.user?.name
+                  : userData?.user?.targetUser?.name,
+              photo:
+                userData?.user?.targetUser?._id === identityNumber
+                  ? userData?.user?.avatar
+                  : userData?.user?.targetUser?.avatar,
+              role: data?.nik ? "conselar" : "student",
+            };
+          });
+
+        setUserList(historyData || []);
+      }
     });
   };
 
@@ -48,7 +83,7 @@ export default function HistoryScreen({ navigation }) {
 
   useEffect(() => {
     getDataUser();
-  }, []);
+  }, [isFocused]);
 
   return (
     <View style={styles.container}>
@@ -70,13 +105,20 @@ export default function HistoryScreen({ navigation }) {
               alignItems: "center",
             }}
           >
+            <Image
+              source={require("../assets/images/no-message.png")}
+              style={{
+                height: 100,
+                width: 100,
+              }}
+            />
             <Text
               style={{
                 fontWeight: "600",
                 color: "grey",
               }}
             >
-              Belum ada data konsuler
+              Belum ada history chat
             </Text>
           </View>
         ) : (

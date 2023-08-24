@@ -13,12 +13,16 @@ import {
 } from "react-native";
 import { Input, Icon } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
-import { getTable } from "../configs/firebaseConfig";
 import { onValue } from "firebase/database";
+import { useIsFocused } from "@react-navigation/native";
+
+import { getTable } from "../configs/firebaseConfig";
 import { getData } from "../utils/localStorage";
 import Skeleton from "../components/Skeleton";
 
 export default function ChatScreen({ navigation }) {
+  const isFocused = useIsFocused();
+
   const [refresh, setRefresh] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [userList, setUserList] = useState([]);
@@ -60,7 +64,7 @@ export default function ChatScreen({ navigation }) {
     } else {
       getDataUser();
     }
-  }, [keyword]);
+  }, [keyword, isFocused]);
 
   return (
     <View style={styles.container}>
@@ -107,13 +111,20 @@ export default function ChatScreen({ navigation }) {
               alignItems: "center",
             }}
           >
+            <Image
+              source={require("../assets/images/no-message.png")}
+              style={{
+                height: 100,
+                width: 100,
+              }}
+            />
             <Text
               style={{
                 fontWeight: "600",
                 color: "grey",
               }}
             >
-              Belum ada data konsuler
+              Belum ada data user
             </Text>
           </View>
         ) : (

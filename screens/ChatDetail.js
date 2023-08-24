@@ -215,6 +215,11 @@ export default function ChatDetailScreen({ navigation, route }) {
           _id: userData?.nik || userData?.nim,
           name: userData?.name,
           avatar: userData?.photo,
+          targetUser: {
+            _id: item?.identityNumber,
+            name: item?.name,
+            avatar: item?.photo,
+          },
         }}
       />
     </>

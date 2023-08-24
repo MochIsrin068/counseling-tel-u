@@ -67,6 +67,144 @@
       "photo": "https://xsgames.co/randomusers/assets/avatars/pixel/20.jpg"
     }
   ],
+  "history": {
+    "08011171103204224": {
+      "messages": [
+        {
+          "_id": "ff1c5eb7-9084-4370-9da4-5eaf0ae5f302",
+          "createdAt": "2023-08-24T05:59:21.776Z",
+          "text": "Halo pak",
+          "user": {
+            "_id": "1103204224",
+            "avatar": "https://xsgames.co/randomusers/assets/avatars/pixel/1.jpg",
+            "name": "Hans Nur Ichsan",
+            "targetUser": {
+              "_id": "0801117",
+              "avatar": "https://xsgames.co/randomusers/assets/avatars/pixel/1.jpg",
+              "name": "Didik Kusnadi, S.Psi., M.Psi."
+            }
+          }
+        }
+      ]
+    },
+    "210134361103200055": {
+      "messages": [
+        {
+          "_id": "2b4514be-c508-4474-b01b-823cc2799e87",
+          "createdAt": "2023-08-24T06:21:46.475Z",
+          "text": "Halo fikri",
+          "user": {
+            "_id": "21013436",
+            "avatar": "https://xsgames.co/randomusers/assets/avatars/pixel/1.jpg",
+            "name": "Gentur Antho Judho, S.Psi.",
+            "targetUser": {
+              "_id": "1103200055",
+              "avatar": "https://xsgames.co/randomusers/assets/avatars/pixel/1.jpg",
+              "name": "Fikri Novaldy"
+            }
+          }
+        }
+      ]
+    },
+    "210134361103200064": {
+      "messages": [
+        {
+          "_id": "1e6c2a1d-a037-4de0-9911-ee873136b9fa",
+          "createdAt": "2023-08-24T06:25:48.746Z",
+          "text": "Halo",
+          "user": {
+            "_id": "21013436",
+            "avatar": "https://xsgames.co/randomusers/assets/avatars/pixel/1.jpg",
+            "name": "Gentur Antho Judho, S.Psi.",
+            "targetUser": {
+              "_id": "1103200064",
+              "avatar": "https://xsgames.co/randomusers/assets/avatars/pixel/1.jpg",
+              "name": "Efrizal Zidan Akbar"
+            }
+          }
+        }
+      ]
+    },
+    "210134361103204224": {
+      "messages": [
+        {
+          "_id": "f188b820-a16a-4ff5-980d-dc5c7e1ccc49",
+          "createdAt": "2023-08-24T06:25:31.431Z",
+          "text": "Ok",
+          "user": {
+            "_id": "21013436",
+            "avatar": "https://xsgames.co/randomusers/assets/avatars/pixel/1.jpg",
+            "name": "Gentur Antho Judho, S.Psi.",
+            "targetUser": {
+              "_id": "1103204224",
+              "avatar": "https://xsgames.co/randomusers/assets/avatars/pixel/1.jpg",
+              "name": "Hans Nur Ichsan"
+            }
+          }
+        },
+        {
+          "_id": "e59a5a1d-47e5-4b72-9983-2ce30a0586dd",
+          "createdAt": "2023-08-24T06:22:49.804Z",
+          "text": "Konsultasi pak",
+          "user": {
+            "_id": "1103204224",
+            "avatar": "https://xsgames.co/randomusers/assets/avatars/pixel/1.jpg",
+            "name": "Hans Nur Ichsan",
+            "targetUser": {
+              "_id": "21013436",
+              "avatar": "https://xsgames.co/randomusers/assets/avatars/pixel/1.jpg",
+              "name": "Gentur Antho Judho, S.Psi."
+            }
+          }
+        },
+        {
+          "_id": "566150c5-27a9-48c6-a982-78090b511797",
+          "createdAt": "2023-08-24T06:21:13.595Z",
+          "text": "?",
+          "user": {
+            "_id": "21013436",
+            "avatar": "https://xsgames.co/randomusers/assets/avatars/pixel/1.jpg",
+            "name": "Gentur Antho Judho, S.Psi.",
+            "targetUser": {
+              "_id": "1103204224",
+              "avatar": "https://xsgames.co/randomusers/assets/avatars/pixel/1.jpg",
+              "name": "Hans Nur Ichsan"
+            }
+          }
+        },
+        {
+          "_id": "8b462407-0e52-4362-8dda-e62642ff5305",
+          "createdAt": "2023-08-24T06:18:48.019Z",
+          "text": "Iya knp",
+          "user": {
+            "_id": "21013436",
+            "avatar": "https://xsgames.co/randomusers/assets/avatars/pixel/1.jpg",
+            "name": "Gentur Antho Judho, S.Psi.",
+            "targetUser": {
+              "_id": "1103204224",
+              "avatar": "https://xsgames.co/randomusers/assets/avatars/pixel/1.jpg",
+              "name": "Hans Nur Ichsan"
+            }
+          }
+        },
+        {
+          "_id": "e5c4e09a-dcbb-4ae3-b991-a36c76c6c7b9",
+          "createdAt": "2023-08-24T05:58:55.922Z",
+          "text": "Halo pak",
+          "user": {
+            "_id": "1103204224",
+            "avatar": "https://xsgames.co/randomusers/assets/avatars/pixel/1.jpg",
+            "name": "Hans Nur Ichsan",
+            "targetUser": {
+              "_id": "21013436",
+              "avatar": "https://xsgames.co/randomusers/assets/avatars/pixel/1.jpg",
+              "name": "Gentur Antho Judho, S.Psi."
+            }
+          }
+        }
+      ]
+    }
+  },
   "students": [
     {
       "name": "Fikri Novaldy",
@@ -355,31 +493,5 @@
       "photo": "https://xsgames.co/randomusers/assets/avatars/pixel/1.jpg",
       "subject": "S1 Teknik Komputer"
     }
-  ],
-  "history" : {
-    "210134361103204224": {
-      "messages" : [
-        {
-          "_id": "d3d82116-0d3f-4bbf-aewewee545", 
-          "createdAt": "2023-08-22T03:15:41.372Z", 
-          "text": "Iya ada apa?", 
-          "user": {
-            "_id": "21013436",
-            "name": "Gentur Antho Judho, S.Psi.",
-            "avatar": "https://xsgames.co/randomusers/assets/avatars/pixel/1.jpg"
-          }
-        },
-        {
-          "_id": "d3d82116-0d3f-4bbf-acaf-5d1acf391792", 
-          "createdAt": "2023-08-21T03:15:41.372Z", 
-          "text": "Halo pak", 
-          "user": {
-            "_id": "1103204224",
-            "name":"Hans Nur Ichsan",
-            "avatar": "https://xsgames.co/randomusers/assets/avatars/pixel/1.jpg"
-          }
-        }
-      ]
-    } 
-  } 
+  ]
 }
