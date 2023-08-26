@@ -57,9 +57,7 @@ export default function ChatScreen({ navigation }) {
 
   useEffect(() => {
     if (keyword) {
-      const newUserList = userList.filter((item) =>
-        `${item?.name}`.includes(keyword)
-      );
+      const newUserList = userList.filter((item) => `${item?.name}`.includes(keyword));
       setUserList(newUserList);
     } else {
       getDataUser();
@@ -70,24 +68,13 @@ export default function ChatScreen({ navigation }) {
     <View style={styles.container}>
       <View style={styles.inputWrapper}>
         <Input
-          placeholder={
-            userData && userData?.nik
-              ? "Cari Nama Mahasiswa"
-              : "Cari Nama Konsulan"
-          }
+          placeholder={userData && userData?.nik ? "Cari Nama Mahasiswa" : "Cari Nama Konsulan"}
           variant="filled"
           width="100%"
           borderRadius="4"
           py="2"
           px="2"
-          InputLeftElement={
-            <Icon
-              ml="2"
-              size="4"
-              color="gray.400"
-              as={<Ionicons name="ios-search" />}
-            />
-          }
+          InputLeftElement={<Icon ml="2" size="4" color="gray.400" as={<Ionicons name="ios-search" />} />}
           value={keyword}
           onChangeText={(value) => setKeyword(value)}
         />
@@ -97,11 +84,7 @@ export default function ChatScreen({ navigation }) {
         {isLoading ? (
           <Skeleton />
         ) : refreshing ? (
-          <ActivityIndicator
-            size="large"
-            color="#05A0E4"
-            style={{ marginTop: 150 }}
-          />
+          <ActivityIndicator size="large" color="#05A0E4" style={{ marginTop: 150 }} />
         ) : userList.length === 0 ? (
           <View
             style={{
@@ -142,7 +125,7 @@ export default function ChatScreen({ navigation }) {
                 refreshing={refresh}
               />
             }
-            keyExtractor={(_, index) => `${index}`}
+            keyExtractor={(item, index) => `${item.identityNumber}`}
             data={userList}
             renderItem={({ item }) => (
               <View>
@@ -163,11 +146,7 @@ export default function ChatScreen({ navigation }) {
                     />
                     <View>
                       <View style={styles.nameContainer}>
-                        <Text
-                          style={styles.nameTxt}
-                          numberOfLines={1}
-                          ellipsizeMode="tail"
-                        >
+                        <Text style={styles.nameTxt} numberOfLines={1} ellipsizeMode="tail">
                           {item.name}
                         </Text>
                       </View>

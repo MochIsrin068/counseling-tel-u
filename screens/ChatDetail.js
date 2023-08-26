@@ -1,24 +1,11 @@
 import React, { useState, useCallback, useEffect, useMemo } from "react";
-import {
-  GiftedChat,
-  Bubble,
-  Composer,
-  Send,
-  InputToolbar,
-  Avatar,
-} from "react-native-gifted-chat";
-import {
-  Text,
-  TouchableOpacity,
-  View,
-  StatusBar,
-  SafeAreaView,
-  Image,
-} from "react-native";
+import { GiftedChat, Bubble, Composer, Send, InputToolbar, Avatar } from "react-native-gifted-chat";
+import { Text, TouchableOpacity, View, StatusBar, SafeAreaView, Image } from "react-native";
 import { FontAwesome, AntDesign, FontAwesome5 } from "@expo/vector-icons";
 import { getTable, database } from "../configs/firebaseConfig";
 import { onValue, update, ref } from "firebase/database";
 import { getData } from "../utils/localStorage";
+import { useNavigation } from "@react-navigation/native";
 
 export default function ChatDetailScreen({ navigation, route }) {
   const { item } = route?.params;
@@ -38,9 +25,7 @@ export default function ChatDetailScreen({ navigation, route }) {
     onValue(
       getTable(
         `history/${
-          userData?.nik
-            ? `${userData?.nik}${item?.identityNumber}`
-            : `${item?.identityNumber}${userData?.nim}`
+          userData?.nik ? `${userData?.nik}${item?.identityNumber}` : `${item?.identityNumber}${userData?.nim}`
         }`
       ),
       (snapshot) => {
@@ -56,14 +41,19 @@ export default function ChatDetailScreen({ navigation, route }) {
     }
   }, [userData]);
 
+  const { setOptions } = useNavigation();
+  useEffect(() => {
+    setOptions({
+      title: item?.name,
+    });
+  }, [item]);
+
   const onSend = (newMessages = []) => {
     update(
       ref(
         database,
         `history/${
-          userData?.nik
-            ? `${userData?.nik}${item?.identityNumber}`
-            : `${item?.identityNumber}${userData?.nim}`
+          userData?.nik ? `${userData?.nik}${item?.identityNumber}` : `${item?.identityNumber}${userData?.nim}`
         }/`
       ),
       { messages: GiftedChat.append(messages, newMessages) }
@@ -172,34 +162,6 @@ export default function ChatDetailScreen({ navigation, route }) {
   );
   return (
     <>
-      <SafeAreaView>
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            height: 60,
-            paddingHorizontal: 16,
-            alignItems: "center",
-            borderBottomColor: "#EDEEF0",
-            borderBottomWidth: 6,
-          }}
-        >
-          <TouchableOpacity
-            onPress={() => navigation.navigate(`${sourcePage}`)}
-          >
-            <AntDesign name="arrowleft" size={22} color="black" />
-          </TouchableOpacity>
-          <Text
-            style={{
-              fontWeight: "600",
-              fontSize: 16,
-              marginLeft: 16,
-            }}
-          >
-            {item?.name}
-          </Text>
-        </View>
-      </SafeAreaView>
       <GiftedChat
         renderBubble={renderBubble}
         render
