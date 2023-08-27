@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
-import { fonts } from "../theme/fonts";
 import { colors } from "../theme/colors";
 import { getData } from "../utils/localStorage";
 
 export default function SplahScreen({ navigation }) {
   useEffect(() => {
-    getData("user").then((res) => {
-      setTimeout(() => {
-        if (res) {
-          navigation.replace("Home");
-        } else {
-          navigation.replace("Login");
-        }
-      }, 3000);
+    getData("first_launch").then((res) => {
+      if (res === "true") {
+        getData("user").then((res) => {
+          if (res) {
+            navigation.replace("Home");
+          } else {
+            navigation.replace("Login");
+          }
+        });
+      } else {
+        navigation.replace("OnboardingScreen");
+      }
     });
   }, [navigation]);
 
